@@ -1,0 +1,34 @@
+td {
+    border: 1px solid black;
+    background-color: #FFFFFF;
+}
+
+.regular-price-column {
+    background-color: #d2bebe;
+}
+.silver-price-column {
+    background-color: #a4c4ff;
+}
+.gold-price-column {
+    background-color: #ffeea1;
+}
+.regular-price-column-row {
+    background-color: #ffe6e6;
+}
+.silver-price-column-row {
+    background-color: #cedfff;
+}
+.gold-price-column-row {
+    background-color: #fff5cf;
+}
+body {
+    background-color: #fff9ec;
+}
+/*D3CEC1FF*/
+* {
+    font-family: Roboto, sans-serif;
+}
+
+h1 {
+    margin-bottom: -10px;
+}

@@ -1,0 +1,44 @@
+growth_time,source,sell_prices_silver,seed,sell_prices_gold,description,general_store_price,night_market_price,sell_price_regular,egg_festival_price,sell_price_silver,traveling_cart_price_min,sell_prices_iridium,sell_price_iridium,artisan_sell_price,sell_price_gold,sell_prices_regular,traveling_cart_price_max,regrowth_time,base,oasis_price,xp,energy,season,jojamart_price,name
+0,7 days,,62.0,Jazz Seeds,75.0,The flower grows in a sphere to invite as many butterflies as possible.,30.0,30.0,,,,100.0,100.0,,,,50.0,1000.0,,Artisan (+40%),,10 Farming XP,,Spring,37.0
+1,12 days,,218.0,Cauliflower Seeds,262.0,"Valuable, but slow-growing. Despite its pale color, the florets are packed with nutrients.",80.0,80.0,,,,120.0,350.0,,,,175.0,1000.0,,Artisan (+40%),,23 Farming XP,,Spring,100.0
+3,4 days,,75.0,Garlic Seeds,90.0,Adds a wonderful zestiness to dishes. High quality garlic can be pretty spicy.,40.0,40.0,,,,100.0,120.0,,,,60.0,1000.0,,Artisan (+40%),,12 Farming XP,,Spring,
+4,10 days,,50.0,Bean Starter,60.0,"A juicy little bean with a cool, crisp snap.",60.0,60.0,,,,100.0,80.0,,,,40.0,1000.0,3.0,Artisan (+40%),,9 Farming XP,,Spring,75.0
+5,6 days,,137.0,Kale Seeds,165.0,The waxy leaves are great in soups and stir frys.,70.0,70.0,,,,105.0,220.0,,,,110.0,1000.0,,Artisan (+40%),,17 Farming XP,,Spring,87.0
+6,4 days,,43.0,Parsnip Seeds,52.0,A spring tuber closely related to the carrot. It has an earthy taste and is full of nutrients.,20.0,20.0,,,,100.0,70.0,,,,35.0,1000.0,,Artisan (+40%),,8 Farming XP,,Spring,25.0
+7,6 days,,100.0,Potato Seeds,120.0,A widely cultivated tuber.,50.0,50.0,,,,100.0,160.0,,,,80.0,1000.0,,Artisan (+40%),,14 Farming XP,,Spring,62.0
+8,13 days,,275.0,Rhubarb Seeds,330.0,"The stalks are extremely tart, but make a great dessert when sweetened.",,,,,,150.0,440.0,,,,220.0,1000.0,,Artisan (+40%),100.0,26 Farming XP,Inedible,Spring,
+9,8 days,,150.0,Strawberry Seeds,180.0,"A sweet, juicy favorite with an appealing red color.",,,,100.0,,,240.0,,,,120.0,,4.0,Artisan (+40%),,18 Farming XP,,Spring,
+10,6 days,,37.0,Tulip Bulb,45.0,The most popular spring flower. Has a very faint sweet smell.,20.0,20.0,,,,100.0,60.0,,,,30.0,1000.0,,Artisan (+40%),,7 Farming XP,,Spring,25.0
+11,8 days (6 when irrigated),,37.0,Rice Shoot,45.0,Rice in its rawest form. Run this through a mill to increase the value.,40.0,,,,,100.0,60.0,,,,30.0,1000.0,,Artisan (+40%),,7 Farming XP,,Spring,
+12,13 days,,62.0,Blueberry Seeds,75.0,A popular berry reported to have many health benefits. The blue skin has the highest nutrient concentration.,80.0,,,,,120.0,100.0,,,,50.0,1000.0,4.0,Artisan (+40%),,10 Farming XP per harvest,,Summer,
+13,14 days,,62.0,Corn Seeds,75.0,"One of the most popular grains. The sweet, fresh cobs are a summer favorite.",150.0,,,,,225.0,100.0,,,,50.0,1000.0,4.0,Artisan (+40%),,10 Farming XP,,"Summer, Fall",187.0
+14,11 days,,31.0,Hops Starter,37.0,"A bitter, tangy flower used to flavor beer.",60.0,,,,,100.0,50.0,,,,25.0,1000.0,1.0,Artisan (+40%),,6 Farming XP,,Summer,75.0
+15,5 days,,50.0,Pepper Seeds,60.0,Fiery hot with a hint of sweetness.,40.0,,,,,100.0,80.0,,,,40.0,1000.0,3.0,Artisan (+40%),,9 Farming XP,,Summer,50.0
+16,12 days,,312.0,Melon Seeds,375.0,"A cool, sweet summer treat.",80.0,,,,,120.0,500.0,,,,250.0,1000.0,,Artisan (+40%),,27 Farming XP,,Summer,100.0
+17,7 days,,175.0,Poppy Seeds,210.0,"In addition to its colorful flower, the Poppy has culinary and medicinal uses.",100.0,,,,,150.0,280.0,,,,140.0,1000.0,,Artisan (+40%),,20 Farming XP,,Summer,125.0
+18,6 days,,112.0,Radish Seeds,135.0,A crisp and refreshing root vegetable with hints of pepper when eaten raw.,40.0,,,,,100.0,180.0,,,,90.0,1000.0,,Artisan (+40%),,15 Farming XP,,Summer,50.0
+19,9 days,,325.0,Red Cabbage Seeds,390.0,Often used in salads and coleslaws. The color can range from purple to blue to green-yellow depending on soil conditions.,100.0,,,,,150.0,520.0,,,,260.0,1000.0,,Artisan (+40%),,28 Farming XP,,Summer,
+20,13 days,,937.0,Starfruit Seeds,1125.0,"An extremely juicy fruit that grows in hot, humid weather. Slightly sweet with a sour undertone.",,,,,,600.0,1500.0,,,,750.0,1000.0,,Artisan (+40%),400.0,43 Farming XP,,Summer,
+21,8 days,,112.0,Spangle Seeds,135.0,"A tropical bloom that thrives in the humid summer air. Has a sweet, tangy aroma.",50.0,,,,,100.0,180.0,,,,90.0,1000.0,,Artisan (+40%),,15 Farming XP,,Summer,62.0
+22,8 days,,100.0,Sunflower Seeds,120.0,A common misconception is that the flower turns so it's always facing the sun.,200.0,,,,,100.0,160.0,,,,80.0,1000.0,,Artisan (+40%),,14 Farming XP,,"Summer, Fall",125.0
+23,11 days,,75.0,Tomato Seeds,90.0,"Rich and slightly tangy, the Tomato has a wide variety of culinary uses.",50.0,,,,,100.0,120.0,,,,60.0,1000.0,4.0,Artisan (+40%),,12 Farming XP,,Summer,62.0
+24,4 days,,31.0,Wheat Seeds,37.0,One of the most widely cultivated grains. Makes a great flour for breads and cakes.,10.0,,,,,100.0,50.0,,,,25.0,1000.0,,Artisan (+40%),,6 Farming XP,Inedible,"Summer, Fall",12.0
+25,7 days,,187.0,Amaranth Seeds,225.0,A purple grain cultivated by an ancient civilization.,70.0,,,,,105.0,300.0,,,,150.0,1000.0,,Artisan (+40%),,21 Farming XP,,Fall,87.0
+26,8 days,,200.0,Artichoke Seeds,240.0,"The bud of a thistle plant. The spiny outer leaves conceal a fleshy, filling interior.",30.0,,,,,100.0,320.0,,,,160.0,1000.0,,Artisan (+40%),,22 Farming XP,,Fall,
+27,6 days,,125.0,Beet Seeds,150.0,"A sweet and earthy root vegatable. As a bonus, the leaves make a great salad.",,,,,,100.0,200.0,,,,100.0,1000.0,,Artisan (+40%),20.0,16 Farming XP,,Fall,
+28,4 days,,100.0,Bok Choy Seeds,120.0,The leafy greens and fibrous stalks are healthy and delicious.,50.0,,,,,100.0,160.0,,,,80.0,1000.0,,Artisan (+40%),,14 Farming XP,,Fall,62.0
+29,7 days,,93.0,Cranberry Seeds,112.0,These tart red berries are a traditional winter food.,240.0,,,,,180.0,150.0,,,,75.0,1000.0,5.0,Artisan (+40%),,14 Farming XP per harvest,,Fall,300.0
+30,5 days,,75.0,Eggplant Seeds,90.0,A rich and wholesome relative of the tomato. Delicious fried or stewed.,20.0,,,,,100.0,120.0,,,,60.0,1000.0,5.0,Artisan (+40%),,12 Farming XP,,Fall,25.0
+31,12 days,,362.0,Fairy Seeds,435.0,An old folk legend suggests that the sweet smell of this flower attracts fairies.,200.0,,,,,300.0,580.0,,,,290.0,1000.0,,Artisan (+40%),,29 Farming XP,,Fall,250.0
+32,7 days (Summer Seeds)10 days (Grape Starter),"Foraging,Farming",100.0,Summer Seeds (Summer) Grape Starter (Fall),120.0,A sweet cluster of fruit.,,,,,,165.0,160.0,,,,80.0,1000.0,3.0,Artisan (+40%),,Summer Seeds: 7 Foraging XPForaging: 7 Foraging XPGrape Starter: 14 Farming XP,,Summer (Summer Seeds and Foraging) Fall (Grape Starter),
+33,13 days,,400.0,Pumpkin Seeds,480.0,"A fall favorite, grown for its crunchy seeds and delicately flavored flesh. As a bonus, the hollow shell can be carved into a festive decoration.",100.0,,,,,150.0,640.0,,,,320.0,1000.0,,Artisan (+40%),,31 Farming XP,Inedible,Fall,125.0
+34,10 days,,200.0,Yam Seeds,240.0,A starchy tuber with a lot of culinary versatility.,60.0,,,,,100.0,320.0,,,,160.0,1000.0,,Artisan (+40%),,22 Farming XP,,Fall,75.0
+35,28 days,,687.0,Ancient Seeds,825.0,It's been dormant for eons.,,,,,,100.0,1100.0,,,,550.0,1000.0,7.0,Artisan (+40%),,38 Farming XP,Inedible,"Spring, Summer, Fall",
+36,12 days,"Foraging in the Desert
+Oasis",93.0,Cactus Seeds,112.0,The sweet fruit of the prickly pear cactus.,,,,,,,150.0,,,,75.0,,3.0,Artisan (+40%),,"Foraging: 7 Foraging XP
+Cactus Seeds: 14 Farming XP
+Oasis: N/A",,All,
+39,14 days,,375.0,Pineapple Seeds,450.0,A sweet and tangy tropical treat.,,,,,,,600.0,,,,300.0,,7.0,Artisan (+40%),,30 Farming XP,,All on Ginger Island Summer in the valley,
+40,10 days (7 when irrigated),,125.0,Taro Tuber,150.0,This starchy root is one of the most ancient crops.,,,,,,,200.0,,,,100.0,,,Artisan (+40%),,5 Farming XP,,All on Ginger Island Summer in the Valley,
+41,24 days,,,Rare Seed,,It's by far the sweetest thing you've ever smelled.,,,3000.0,,3750.0,600.0,,6000.0,,4500.0,,1000.0,,,,64 Farming XP,Inedible,Fall,
+42,20 days,,,Tea Sapling,,"The young leaves of the tea plant. Can be brewed into the popular, energizing beverage.",,,,,,1500.0,,,,,50.0,2500.0,1.0,Artisan (+40%),,0,Inedible,"Spring, Summer • Fall",

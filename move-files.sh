@@ -1,3 +1,3 @@
 #!/bin/bash
 destination="../cgi-bin"
-cp * "$destination/"
+cp -r * "$destination/"

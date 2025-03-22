@@ -1,6 +1,5 @@
 # Stardew Calculator
 
----
 ### Overview
 My CSDS285 final project is a simple web application to help [Stardew Valley](https://www.stardewvalley.net/) players optimize their farming profits 
 by calculating the gold earned per day for various crops. Stardew Valley is a popular farming simulation game where 

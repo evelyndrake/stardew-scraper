@@ -1,7 +1,10 @@
 <?php
 include 'data_functions.php';
 $csvFile = fopen('data/crops_raw_data.csv', 'r');
-
+function dayOrDaysString($number): string
+{
+    return $number === 1 ? "day" : "days";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +52,12 @@ $csvFile = fopen('data/crops_raw_data.csv', 'r');
         <option value="regular">regular quality crops</option>
         <option value="silver">silver quality crops</option>
         <option value="gold">gold quality crops</option>
+        <option value="iridium">iridium quality crops</option>
     </select>
+    <br/>
+<!--    <label for="showAllPrices">Show all sale prices:</label>-->
+<!--    <input type="checkbox" id="showAllPrices" checked="checked">-->
+
 </div>
 
 <table id="cropTable">
@@ -64,6 +72,7 @@ $csvFile = fopen('data/crops_raw_data.csv', 'r');
         <th class="regular-price-column">Sell price (regular quality)</th>
         <th class="silver-price-column">Sell price (silver quality)</th>
         <th class="gold-price-column">Sell price (gold quality)</th>
+        <th class="iridium-price-column">Sell price (iridium quality)</th>
         <th class="farming-xp-column">Farming XP</th>
     </tr>
     </thead>
@@ -79,6 +88,7 @@ $csvFile = fopen('data/crops_raw_data.csv', 'r');
         $sell_price_regular = (int)htmlspecialchars($row[17]);
         $sell_price_silver = (int)htmlspecialchars($row[3]);
         $sell_price_gold = (int)htmlspecialchars($row[5]);
+        $sell_price_iridium = (int)htmlspecialchars($row[13]);
         $production = production_per_season($growth_time, $regrowth_time);
         $farming_xp = (int)htmlspecialchars($row[22]);
         $purchase_prices = [
@@ -91,23 +101,30 @@ $csvFile = fopen('data/crops_raw_data.csv', 'r');
         ];
         $purchase_price = find_cheapest_price($purchase_prices);
         $gold_per_day = calculate_gold_per_day($production, $purchase_price, $sell_price_regular);
-
-        echo "<tr data-regular='{$sell_price_regular}' data-silver='{$sell_price_silver}' data-gold='{$sell_price_gold}'>";
+        $growth_time_string = $growth_time . " " . dayOrDaysString($growth_time);
+        $regrowth_time_string = $regrowth_time . " " . dayOrDaysString($regrowth_time);
+        if ($regrowth_time === 0) {
+            $regrowth_time_string = "instant";
+        }
+        echo "<tr data-regular='{$sell_price_regular}' data-silver='{$sell_price_silver}' data-gold='{$sell_price_gold} ' data-iridium='{$sell_price_iridium}'>";
         echo "<td>{$seed_name}</td>";
         echo "<td class='gold-price-column-row' data-goldperday='" . number_format($gold_per_day, 2) . "'>" . number_format($gold_per_day, 2) . "</td>";
-        echo "<td>{$growth_time}</td>";
-        echo "<td>{$regrowth_time}</td>";
+        echo "<td>{$growth_time_string}</td>";
+        echo "<td>{$regrowth_time_string}</td>";
         echo "<td>{$production}</td>";
         echo "<td class='purchase-price-column-row'>" . htmlspecialchars($purchase_price) . "</td>";
         echo "<td class='regular-price-column-row'>" . htmlspecialchars($sell_price_regular) . "</td>";
         echo "<td class='silver-price-column-row'>" . htmlspecialchars($sell_price_silver) . "</td>";
         echo "<td class='gold-price-column-row'>" . htmlspecialchars($sell_price_gold) . "</td>";
+        echo "<td class='iridium-price-column-row'>" . htmlspecialchars($sell_price_iridium) . "</td>";
         echo "<td class='farming-xp-column-row'>" . htmlspecialchars($farming_xp) . "</td>";
         echo "</tr>";
     }
     ?>
     </tbody>
 </table>
+
+
 <script>
     // Initally, sort alphabetically by seed name
     let table = document.getElementById("cropTable").getElementsByTagName('tbody')[0];
@@ -137,6 +154,40 @@ $csvFile = fopen('data/crops_raw_data.csv', 'r');
             row.cells[1].textContent = goldPerDay;
         });
     });
+    function updateSalePrices() {
+
+    }
+    // Show all sale prices if checkbox is checked, otherwise just show selected quality
+    // CLEAN THIS UP!
+    // document.getElementById('showAllPrices').addEventListener('change', function() {
+    //     let showAll = this.checked;
+    //     let rows = document.querySelectorAll("#cropTable tbody tr");
+    //     let headerRow = document.querySelector("#cropTable thead tr");
+    //     rows.forEach(row => {
+    //         row.cells[6].style.display = showAll ? "" : "none";
+    //         row.cells[7].style.display = showAll ? "" : "none";
+    //         row.cells[8].style.display = showAll ? "" : "none";
+    //         row.cells[9].style.display = showAll ? "" : "none";
+    //         headerRow.cells[6].style.display = showAll ? "" : "none";
+    //         headerRow.cells[7].style.display = showAll ? "" : "none";
+    //         headerRow.cells[8].style.display = showAll ? "" : "none";
+    //         headerRow.cells[9].style.display = showAll ? "" : "none";
+    //
+    //     });
+    //     if (!showAll) {
+    //         let selectedType = document.getElementById('sellPriceType').value;
+    //         rows.forEach(row => {
+    //             row.cells[6].style.display = selectedType === 'regular' ? "" : "none";
+    //             row.cells[7].style.display = selectedType === 'silver' ? "" : "none";
+    //             row.cells[8].style.display = selectedType === 'gold' ? "" : "none";
+    //             row.cells[9].style.display = selectedType === 'iridium' ? "" : "none";
+    //             headerRow.cells[6].style.display = selectedType === 'regular' ? "" : "none";
+    //             headerRow.cells[7].style.display = selectedType === 'silver' ? "" : "none";
+    //             headerRow.cells[8].style.display = selectedType === 'gold' ? "" : "none";
+    //             headerRow.cells[9].style.display = selectedType === 'iridium' ? "" : "none";
+    //         });
+    //     }
+    // });
     // Sort table depending on selected sort type
     document.getElementById('sortType').addEventListener('change', function() {
         let sortType = this.value;
@@ -172,6 +223,8 @@ $csvFile = fopen('data/crops_raw_data.csv', 'r');
     });
 </script>
 <?php
+
+
 fclose($csvFile);
 ?>
 

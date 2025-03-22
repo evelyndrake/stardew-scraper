@@ -21,6 +21,12 @@ td {
 .gold-price-column-row {
     background-color: #fff5cf;
 }
+.iridium-price-column {
+    background-color: #d0a4ff;
+}
+.iridium-price-column-row {
+    background-color: #f0e5ff;
+}
 .purchase-price-column {
     background-color: #bed2ca;
 }

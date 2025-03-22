@@ -1,6 +1,7 @@
 <?php
 include 'data_functions.php';
 $csvFile = fopen('data/crops_raw_data.csv', 'r');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,6 +71,9 @@ $csvFile = fopen('data/crops_raw_data.csv', 'r');
     <?php
     while (($row = fgetcsv($csvFile, 0, ',', '"', '\\')) !== false) {
         $seed_name = htmlspecialchars($row[4]);
+        if ($seed_name === "seed") { // I was never able to figure this out, but there was an extra row that wasn't in the dataset
+            continue;
+        }
         $growth_time = (int)htmlspecialchars($row[1]);
         $regrowth_time = (int)htmlspecialchars($row[19]);
         $sell_price_regular = (int)htmlspecialchars($row[17]);

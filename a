@@ -26,22 +26,14 @@ $csvFile = fopen('data/crops_raw_data.csv', 'r');
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>Stardew Calculator</h1>
+<h1>Stardew Scraper</h1>
 <div>
-<p><i>A profit calculator for the farming game <a href='https://www.stardewvalley.net/'>Stardew Valley</a> written by <a href="https://www.github.com/evelyndrake">Evelyn Drake</a>
-        for CSDS285 (Linux Tools and Scripting). View the source code <a href="https://github.com/evelyndrake/stardew-scraper">here.</a></i></i></p>
+<p><i>A profit calculator for the farming game <a href='https://www.stardewvalley.net/'>Stardew Valley</a> written by <a href='https://www.github.com/evelyndrake'>Evelyn Drake</a> for CSDS285 (Linux Tools and Scripting).</i></p>
 </div>
-<hr/>
 <div class="controls">
     <h4>Controls</h4>
-    <label for="sortType">Sort table by:</label>
-    <select id="sortType">
-        <option value="name">seed name (default)</option>
-        <option value="goldPerDay">gold per day</option>
-        <option value="purchasePrice">cheapest purchase price</option>
-        <option value="farmingXP">farming XP gained</option>
-        <option value="sellPrice">sell price</option>
-    </select>
+    <label for="sortToggle">Sort by Gold per Day (Descending):</label>
+    <input type="checkbox" id="sortToggle">
     <br/>
     <label for="sellPriceType">Calculate Gold per Day based on:</label>
     <select id="sellPriceType">
@@ -50,7 +42,6 @@ $csvFile = fopen('data/crops_raw_data.csv', 'r');
         <option value="gold">gold quality crops</option>
     </select>
 </div>
-
 <table id="cropTable">
     <thead>
     <tr>
@@ -63,7 +54,6 @@ $csvFile = fopen('data/crops_raw_data.csv', 'r');
         <th class="regular-price-column">Sell price (regular quality)</th>
         <th class="silver-price-column">Sell price (silver quality)</th>
         <th class="gold-price-column">Sell price (gold quality)</th>
-        <th class="farming-xp-column">Farming XP</th>
     </tr>
     </thead>
     <tbody>
@@ -76,7 +66,6 @@ $csvFile = fopen('data/crops_raw_data.csv', 'r');
         $sell_price_silver = (int)htmlspecialchars($row[3]);
         $sell_price_gold = (int)htmlspecialchars($row[5]);
         $production = production_per_season($growth_time, $regrowth_time);
-        $farming_xp = (int)htmlspecialchars($row[22]);
         $purchase_prices = [
             (int)htmlspecialchars($row[10]),
             (int)htmlspecialchars($row[7]),
@@ -98,7 +87,6 @@ $csvFile = fopen('data/crops_raw_data.csv', 'r');
         echo "<td class='regular-price-column-row'>" . htmlspecialchars($sell_price_regular) . "</td>";
         echo "<td class='silver-price-column-row'>" . htmlspecialchars($sell_price_silver) . "</td>";
         echo "<td class='gold-price-column-row'>" . htmlspecialchars($sell_price_gold) . "</td>";
-        echo "<td class='farming-xp-column-row'>" . htmlspecialchars($farming_xp) . "</td>";
         echo "</tr>";
     }
     ?>
@@ -133,35 +121,24 @@ $csvFile = fopen('data/crops_raw_data.csv', 'r');
             row.cells[1].textContent = goldPerDay;
         });
     });
-    // Sort table depending on selected sort type
-    document.getElementById('sortType').addEventListener('change', function() {
-        let sortType = this.value;
+    // Sort table descending by gold per day when checkbox is checked
+    document.getElementById('sortToggle').addEventListener('change', function() {
         let table = document.getElementById("cropTable").getElementsByTagName('tbody')[0];
         let rows = Array.from(table.getElementsByTagName("tr"));
 
-        rows.sort((a, b) => {
-            if (sortType === 'name') {
+        if (this.checked) {
+            rows.sort((a, b) => {
+                let goldA = parseFloat(a.cells[1].textContent) || 0;
+                let goldB = parseFloat(b.cells[1].textContent) || 0;
+                return goldB - goldA;
+            });
+        } else {
+            rows.sort((a, b) => {
                 let nameA = a.cells[0].textContent.toLowerCase();
                 let nameB = b.cells[0].textContent.toLowerCase();
                 return nameA.localeCompare(nameB);
-            } else if (sortType === 'goldPerDay') {
-                let goldA = parseFloat(a.cells[1].dataset.goldperday) || 0;
-                let goldB = parseFloat(b.cells[1].dataset.goldperday) || 0;
-                return goldB - goldA; // Sort in descending order
-            } else if (sortType === 'purchasePrice') {
-                let priceA = parseFloat(a.cells[5].textContent) || 0;
-                let priceB = parseFloat(b.cells[5].textContent) || 0;
-                return priceA - priceB; // Sort in ascending order
-            } else if (sortType === 'farmingXP') {
-                let xpA = parseFloat(a.cells[9].textContent) || 0;
-                let xpB = parseFloat(b.cells[9].textContent) || 0;
-                return xpB - xpA; // Sort in descending order
-            } else if (sortType === 'sellPrice') {
-                let sellA = parseFloat(a.cells[6].textContent) || 0;
-                let sellB = parseFloat(b.cells[6].textContent) || 0;
-                return sellB - sellA; // Sort in descending order
-            }
-        });
+            });
+        }
 
         table.innerHTML = "";
         rows.forEach(row => table.appendChild(row));

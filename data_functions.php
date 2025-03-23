@@ -1,5 +1,6 @@
 <?php
-function production_per_season($growth_time, $regrowth_time) {
+function production_per_season($growth_time, $regrowth_time): int
+{
     if ($growth_time == 0) return 0;
     $actual_day = 1;
     $production = 0;

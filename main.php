@@ -36,96 +36,130 @@ function dayOrDaysString($number): string
         for CSDS285 (Linux Tools and Scripting). View the source code <a href="https://github.com/evelyndrake/stardew-scraper">here.</a></i></i></p>
 </div>
 <hr/>
-<div class="controls">
-    <h4>Controls</h4>
-    <label for="sortType">Sort table by:</label>
-    <select id="sortType">
-        <option value="name">seed name (default)</option>
-        <option value="goldPerDay">gold per day</option>
-        <option value="purchasePrice">cheapest purchase price</option>
-        <option value="farmingXP">farming XP gained</option>
-        <option value="sellPrice">sell price</option>
-    </select>
-    <br/>
-    <label for="sellPriceType">Calculate Gold per Day based on:</label>
-    <select id="sellPriceType">
-        <option value="regular">regular quality crops</option>
-        <option value="silver">silver quality crops</option>
-        <option value="gold">gold quality crops</option>
-        <option value="iridium">iridium quality crops</option>
-    </select>
-    <br/>
-<!--    <label for="showAllPrices">Show all sale prices:</label>-->
-<!--    <input type="checkbox" id="showAllPrices" checked="checked">-->
+<div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'farming')"><img src='icons/tabs/Watering_Can.png' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;'>Farming</button>
+    <button class="tablinks" onclick="openTab(event, 'fishing')"><img src='icons/tabs/Fiberglass_Rod.png' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;'>Fishing</button>
+</div>
+<div id="farming" class="tabcontent">
+    <div class="controls">
+        <h4>Controls</h4>
+        <label for="sortType">Sort table by:</label>
+        <select id="sortType">
+            <option value="name">seed name (default)</option>
+            <option value="goldPerDay">gold per day</option>
+            <option value="purchasePrice">cheapest purchase price</option>
+            <option value="farmingXP">farming XP gained</option>
+            <option value="sellPrice">sell price</option>
+        </select>
+        <br/>
+        <label for="sellPriceType">Calculate Gold per Day based on:</label>
+        <select id="sellPriceType">
+            <option value="regular">regular quality crops</option>
+            <option value="silver">silver quality crops</option>
+            <option value="gold">gold quality crops</option>
+            <option value="iridium">iridium quality crops</option>
+        </select>
+        <br/>
+    <!--    <label for="showAllPrices">Show all sale prices:</label>-->
+    <!--    <input type="checkbox" id="showAllPrices" checked="checked">-->
 
+    </div>
+
+    <table id="cropTable">
+        <thead>
+        <tr>
+            <th>Seed name</th>
+            <th class="gold-price-column">Gold per day</th>
+            <th>Growth time</th>
+            <th>Regrowth time</th>
+            <th>Production per season</th>
+            <th class="purchase-price-column">Cheapest purchase price</th>
+            <th class="regular-price-column">Sell price (regular quality)</th>
+            <th class="silver-price-column">Sell price (silver quality)</th>
+            <th class="gold-price-column">Sell price (gold quality)</th>
+            <th class="iridium-price-column">Sell price (iridium quality)</th>
+            <th class="farming-xp-column">Farming XP</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        while (($row = fgetcsv($csvFile, 0, ',', '"', '\\')) !== false) {
+            $seed_name = htmlspecialchars($row[4]);
+            if ($seed_name === "seed") { // I was never able to figure this out, but there was an extra row that wasn't in the dataset
+                continue;
+            }
+            $image_name = str_replace(" ", "_", $seed_name) . '.png';
+            $image_path = "icons/seeds/" . $image_name;
+            $growth_time = (int)htmlspecialchars($row[1]);
+            $regrowth_time = (int)htmlspecialchars($row[19]);
+            $sell_price_regular = (int)htmlspecialchars($row[17]);
+            $sell_price_silver = (int)htmlspecialchars($row[3]);
+            $sell_price_gold = (int)htmlspecialchars($row[5]);
+            $sell_price_iridium = (int)htmlspecialchars($row[13]);
+            $production = production_per_season($growth_time, $regrowth_time);
+            $farming_xp = (int)htmlspecialchars($row[22]);
+            $purchase_prices = [
+                (int)htmlspecialchars($row[10]),
+                (int)htmlspecialchars($row[7]),
+                (int)htmlspecialchars($row[25]),
+                (int)htmlspecialchars($row[8]),
+                (int)htmlspecialchars($row[21]),
+                (int)htmlspecialchars($row[12]),
+            ];
+            $purchase_price = find_cheapest_price($purchase_prices);
+            $gold_per_day = calculate_gold_per_day($production, $purchase_price, $sell_price_regular);
+            $growth_time_string = $growth_time . " " . dayOrDaysString($growth_time);
+            $regrowth_time_string = $regrowth_time . " " . dayOrDaysString($regrowth_time);
+            if ($regrowth_time === 0) {
+                $regrowth_time_string = "instant";
+            }
+            echo "<tr data-regular='{$sell_price_regular}' data-silver='{$sell_price_silver}' data-gold='{$sell_price_gold}' data-iridium='{$sell_price_iridium}'>";
+            echo "<td><img src='{$image_path}' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;'> {$seed_name}</td>";
+            echo "<td class='gold-price-column-row' data-goldperday='" . number_format($gold_per_day, 2) . "'>" . number_format($gold_per_day, 2) . "</td>";
+            echo "<td>{$growth_time_string}</td>";
+            echo "<td>{$regrowth_time_string}</td>";
+            echo "<td>{$production}</td>";
+            echo "<td class='purchase-price-column-row'>" . htmlspecialchars($purchase_price) . "</td>";
+            echo "<td class='regular-price-column-row'>" . htmlspecialchars($sell_price_regular) . "</td>";
+            echo "<td class='silver-price-column-row'>" . htmlspecialchars($sell_price_silver) . "</td>";
+            echo "<td class='gold-price-column-row'>" . htmlspecialchars($sell_price_gold) . "</td>";
+            echo "<td class='iridium-price-column-row'>" . htmlspecialchars($sell_price_iridium) . "</td>";
+            echo "<td class='farming-xp-column-row'>" . htmlspecialchars($farming_xp) . "</td>";
+            echo "</tr>";
+        }
+        ?>
+        </tbody>
+    </table>
+</div>
+<div id="fishing" class="tabcontent">
+    <h4>Fishing</h4>
+    <p>Content coming soon!</p>
 </div>
 
-<table id="cropTable">
-    <thead>
-    <tr>
-        <th>Seed name</th>
-        <th class="gold-price-column">Gold per day</th>
-        <th>Growth time</th>
-        <th>Regrowth time</th>
-        <th>Production per season</th>
-        <th class="purchase-price-column">Cheapest purchase price</th>
-        <th class="regular-price-column">Sell price (regular quality)</th>
-        <th class="silver-price-column">Sell price (silver quality)</th>
-        <th class="gold-price-column">Sell price (gold quality)</th>
-        <th class="iridium-price-column">Sell price (iridium quality)</th>
-        <th class="farming-xp-column">Farming XP</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php
-    while (($row = fgetcsv($csvFile, 0, ',', '"', '\\')) !== false) {
-        $seed_name = htmlspecialchars($row[4]);
-        if ($seed_name === "seed") { // I was never able to figure this out, but there was an extra row that wasn't in the dataset
-            continue;
-        }
-        $growth_time = (int)htmlspecialchars($row[1]);
-        $regrowth_time = (int)htmlspecialchars($row[19]);
-        $sell_price_regular = (int)htmlspecialchars($row[17]);
-        $sell_price_silver = (int)htmlspecialchars($row[3]);
-        $sell_price_gold = (int)htmlspecialchars($row[5]);
-        $sell_price_iridium = (int)htmlspecialchars($row[13]);
-        $production = production_per_season($growth_time, $regrowth_time);
-        $farming_xp = (int)htmlspecialchars($row[22]);
-        $purchase_prices = [
-            (int)htmlspecialchars($row[10]),
-            (int)htmlspecialchars($row[7]),
-            (int)htmlspecialchars($row[25]),
-            (int)htmlspecialchars($row[8]),
-            (int)htmlspecialchars($row[21]),
-            (int)htmlspecialchars($row[12]),
-        ];
-        $purchase_price = find_cheapest_price($purchase_prices);
-        $gold_per_day = calculate_gold_per_day($production, $purchase_price, $sell_price_regular);
-        $growth_time_string = $growth_time . " " . dayOrDaysString($growth_time);
-        $regrowth_time_string = $regrowth_time . " " . dayOrDaysString($regrowth_time);
-        if ($regrowth_time === 0) {
-            $regrowth_time_string = "instant";
-        }
-        echo "<tr data-regular='{$sell_price_regular}' data-silver='{$sell_price_silver}' data-gold='{$sell_price_gold} ' data-iridium='{$sell_price_iridium}'>";
-        echo "<td>{$seed_name}</td>";
-        echo "<td class='gold-price-column-row' data-goldperday='" . number_format($gold_per_day, 2) . "'>" . number_format($gold_per_day, 2) . "</td>";
-        echo "<td>{$growth_time_string}</td>";
-        echo "<td>{$regrowth_time_string}</td>";
-        echo "<td>{$production}</td>";
-        echo "<td class='purchase-price-column-row'>" . htmlspecialchars($purchase_price) . "</td>";
-        echo "<td class='regular-price-column-row'>" . htmlspecialchars($sell_price_regular) . "</td>";
-        echo "<td class='silver-price-column-row'>" . htmlspecialchars($sell_price_silver) . "</td>";
-        echo "<td class='gold-price-column-row'>" . htmlspecialchars($sell_price_gold) . "</td>";
-        echo "<td class='iridium-price-column-row'>" . htmlspecialchars($sell_price_iridium) . "</td>";
-        echo "<td class='farming-xp-column-row'>" . htmlspecialchars($farming_xp) . "</td>";
-        echo "</tr>";
-    }
-    ?>
-    </tbody>
-</table>
-
-
 <script>
+    // Tab functionality
+    function openTab(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+    // Open to farming tab by default
+    // openTab(event, 'farming');
     // Initally, sort alphabetically by seed name
     let table = document.getElementById("cropTable").getElementsByTagName('tbody')[0];
     let rows = Array.from(table.getElementsByTagName("tr"));
@@ -154,40 +188,6 @@ function dayOrDaysString($number): string
             row.cells[1].textContent = goldPerDay;
         });
     });
-    function updateSalePrices() {
-
-    }
-    // Show all sale prices if checkbox is checked, otherwise just show selected quality
-    // CLEAN THIS UP!
-    // document.getElementById('showAllPrices').addEventListener('change', function() {
-    //     let showAll = this.checked;
-    //     let rows = document.querySelectorAll("#cropTable tbody tr");
-    //     let headerRow = document.querySelector("#cropTable thead tr");
-    //     rows.forEach(row => {
-    //         row.cells[6].style.display = showAll ? "" : "none";
-    //         row.cells[7].style.display = showAll ? "" : "none";
-    //         row.cells[8].style.display = showAll ? "" : "none";
-    //         row.cells[9].style.display = showAll ? "" : "none";
-    //         headerRow.cells[6].style.display = showAll ? "" : "none";
-    //         headerRow.cells[7].style.display = showAll ? "" : "none";
-    //         headerRow.cells[8].style.display = showAll ? "" : "none";
-    //         headerRow.cells[9].style.display = showAll ? "" : "none";
-    //
-    //     });
-    //     if (!showAll) {
-    //         let selectedType = document.getElementById('sellPriceType').value;
-    //         rows.forEach(row => {
-    //             row.cells[6].style.display = selectedType === 'regular' ? "" : "none";
-    //             row.cells[7].style.display = selectedType === 'silver' ? "" : "none";
-    //             row.cells[8].style.display = selectedType === 'gold' ? "" : "none";
-    //             row.cells[9].style.display = selectedType === 'iridium' ? "" : "none";
-    //             headerRow.cells[6].style.display = selectedType === 'regular' ? "" : "none";
-    //             headerRow.cells[7].style.display = selectedType === 'silver' ? "" : "none";
-    //             headerRow.cells[8].style.display = selectedType === 'gold' ? "" : "none";
-    //             headerRow.cells[9].style.display = selectedType === 'iridium' ? "" : "none";
-    //         });
-    //     }
-    // });
     // Sort table depending on selected sort type
     document.getElementById('sortType').addEventListener('change', function() {
         let sortType = this.value;
@@ -220,6 +220,7 @@ function dayOrDaysString($number): string
 
         table.innerHTML = "";
         rows.forEach(row => table.appendChild(row));
+        openTab(event, 'farming'); // Ensure the farming tab is open after sorting
     });
 </script>
 <?php

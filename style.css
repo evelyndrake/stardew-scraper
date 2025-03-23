@@ -45,14 +45,12 @@ h1 {
     margin-bottom: -0.4em;
 }
 h4 {
-    margin-top: -0.2em;
     margin-bottom: 0;
 }
 
 .controls {
-    vertical-align: top;
-    display: inline-block;
-    margin-bottom: 10px;
+    horiz-align: left;
+    margin-bottom: 0.5em;
 }
 hr {
     border: 0;
@@ -60,4 +58,59 @@ hr {
     background-color: #000000;
     margin-top: -0.5em;
     margin-bottom: 0.5em;
+}
+
+
+.tab {
+    overflow: auto;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    margin-bottom: -1em;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    transition: 0.3s;
+
+    font-weight: 800;
+    text-align: center;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: block;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.tabcontent {
+    animation: fadeEffect 0.2s; /* Fading effect takes 1 second */
+}
+
+/* Go from zero to full opacity */
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+img {
+    image-rendering: pixelated;
+    /*image-rendering: crisp-edges;*/
 }

@@ -33,6 +33,33 @@ td {
 .purchase-price-column-row {
     background-color: #e9ffe6;
 }
+
+.spring-column-row {
+    background-color: #e5ffe5;
+}
+.summer-column-row {
+    background-color: #ffe9ca;
+}
+.fall-column-row {
+    background-color: #ffe5ff;
+}
+.winter-column-row {
+    background-color: #bcdcff;
+}
+.spring-column {
+    background-color: #b0ffb0;
+}
+.summer-column {
+    background-color: #ffd797;
+}
+.fall-column {
+    background-color: #ffbbff;
+}
+.winter-column {
+    background-color: #9dcbff;
+}
+
+
 body {
     background-color: #fff9ec;
 }

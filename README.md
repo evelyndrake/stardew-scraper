@@ -25,3 +25,4 @@ Chart.js to graph the data in addition to the table would be cool too.
 ### Screenshots (as of 3/21)
 ![sc1.png](screenshots/sc1.png)
 ![sc2.png](screenshots/sc2.png)
+![sc3.png](screenshots/sc3.png)

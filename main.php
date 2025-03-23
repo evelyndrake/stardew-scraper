@@ -99,14 +99,15 @@ function dayOrDaysString($number): string
             $production = production_per_season($growth_time, $regrowth_time);
             $farming_xp = (int)htmlspecialchars($row[22]);
             $purchase_prices = [
-                (int)htmlspecialchars($row[10]),
-                (int)htmlspecialchars($row[7]),
-                (int)htmlspecialchars($row[25]),
-                (int)htmlspecialchars($row[8]),
-                (int)htmlspecialchars($row[21]),
-                (int)htmlspecialchars($row[12]),
+                (int)htmlspecialchars($row[10]), // Egg festival
+                (int)htmlspecialchars($row[7]),  // General store
+                (int)htmlspecialchars($row[25]), // JojaMart
+                (int)htmlspecialchars($row[8]),  // Night market
+                (int)htmlspecialchars($row[21]), // Oasis
+                (int)htmlspecialchars($row[12]), // Traveling cart
             ];
             $purchase_price = find_cheapest_price($purchase_prices);
+            $purchase_price_name = find_cheapest_price_name($purchase_prices);
             $gold_per_day = calculate_gold_per_day($production, $purchase_price, $sell_price_regular);
             $growth_time_string = $growth_time . " " . dayOrDaysString($growth_time);
             $regrowth_time_string = $regrowth_time . " " . dayOrDaysString($regrowth_time);
@@ -119,7 +120,7 @@ function dayOrDaysString($number): string
             echo "<td>{$growth_time_string}</td>";
             echo "<td>{$regrowth_time_string}</td>";
             echo "<td>{$production}</td>";
-            echo "<td class='purchase-price-column-row'>" . htmlspecialchars($purchase_price) . "</td>";
+            echo "<td class='purchase-price-column-row'>" . htmlspecialchars($purchase_price) . " <div class='small-text'>$purchase_price_name</div></td>";
             echo "<td class='regular-price-column-row'>" . htmlspecialchars($sell_price_regular) . "</td>";
             echo "<td class='silver-price-column-row'>" . htmlspecialchars($sell_price_silver) . "</td>";
             echo "<td class='gold-price-column-row'>" . htmlspecialchars($sell_price_gold) . "</td>";

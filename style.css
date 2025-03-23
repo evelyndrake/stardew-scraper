@@ -114,3 +114,7 @@ img {
     image-rendering: pixelated;
     /*image-rendering: crisp-edges;*/
 }
+
+.small-text {
+    font-size: 0.8em;
+}

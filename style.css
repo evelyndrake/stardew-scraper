@@ -128,13 +128,26 @@ hr {
 }
 
 .tabcontent {
-    animation: fadeEffect 0.2s; /* Fading effect takes 1 second */
+    animation: slideInFromBottom 0.3s;
+
 }
 
 /* Go from zero to full opacity */
 @keyframes fadeEffect {
     from {opacity: 0;}
     to {opacity: 1;}
+}
+
+/*Slide in from bottom*/
+@keyframes slideInFromBottom {
+    from {
+        transform: translateY(20%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+    }
 }
 
 img {

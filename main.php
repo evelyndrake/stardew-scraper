@@ -109,6 +109,7 @@ function dayOrDaysString($number): string
             ];
             $purchase_price = find_cheapest_price($purchase_prices);
             $purchase_price_name = find_cheapest_price_name($purchase_prices);
+            $description = htmlspecialchars($row[6]);
             $gold_per_day = calculate_gold_per_day($production, $purchase_price, $sell_price_regular);
             $growth_time_string = $growth_time . " " . dayOrDaysString($growth_time);
             $regrowth_time_string = $regrowth_time . " " . dayOrDaysString($regrowth_time);
@@ -116,7 +117,7 @@ function dayOrDaysString($number): string
                 $regrowth_time_string = "instant";
             }
             echo "<tr data-regular='{$sell_price_regular}' data-silver='{$sell_price_silver}' data-gold='{$sell_price_gold}' data-iridium='{$sell_price_iridium}'>";
-            echo "<td><img src='{$image_path}' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;'> {$seed_name}</td>";
+            echo "<td><img src='{$image_path}' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;' title = '{$description}'> {$seed_name}</td>";
             echo "<td class='gold-price-column-row' data-goldperday='" . number_format($gold_per_day, 2) . "'>" . number_format($gold_per_day, 2) . "</td>";
             echo "<td>{$growth_time_string}</td>";
             echo "<td>{$regrowth_time_string}</td>";

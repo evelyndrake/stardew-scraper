@@ -42,4 +42,9 @@ function find_cheapest_price_name($prices) {
 function calculate_gold_per_day($production, $purchase_price, $sell_price) {
     return ($production > 0 && $purchase_price !== null) ? (($production * $sell_price) - $purchase_price) / 28 : 0;
 }
+
+function dayOrDaysString($number): string
+{
+    return $number === 1 ? "day" : "days";
+}
 ?>

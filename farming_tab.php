@@ -19,7 +19,7 @@ function displayFarmingTab($csvFile) {
             <option value="gold">gold quality crops</option>
             <option value="iridium">iridium quality crops</option>
         </select>
-        <br/>
+        <div class="small-text">(Production * Sell Price - Purchase Price) / 28</div>
     <!--    <label for="showAllPrices">Show all sale prices:</label>-->
     <!--    <input type="checkbox" id="showAllPrices" checked="checked">-->
 
@@ -75,8 +75,8 @@ function displayFarmingTab($csvFile) {
             if ($regrowth_time === 0) {
                 $regrowth_time_string = "instant";
             }
-            echo "<tr data-regular='{$sell_price_regular}' data-silver='{$sell_price_silver}' data-gold='{$sell_price_gold}' data-iridium='{$sell_price_iridium}'>";
-            echo "<td><img src='{$image_path}' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;' title = '{$description}'> {$seed_name}</td>";
+            echo "<tr title='{$description}' data-regular='{$sell_price_regular}' data-silver='{$sell_price_silver}' data-gold='{$sell_price_gold}' data-iridium='{$sell_price_iridium}'>";
+            echo "<td><img src='{$image_path}' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;' title='{$description}'> {$seed_name}</td>";
             echo "<td class='gold-price-column-row' data-goldperday='" . number_format($gold_per_day, 2) . "'>" . number_format($gold_per_day, 2) . "</td>";
             echo "<td>{$growth_time_string}</td>";
             echo "<td>{$regrowth_time_string}</td>";

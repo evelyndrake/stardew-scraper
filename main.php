@@ -96,6 +96,33 @@ displayFishingTab($fishFile);
             row.cells[1].textContent = goldPerDay;
         });
     });
+    // Sort fishing table depending on selected sort type
+    document.getElementById('sortTypeFishing').addEventListener('change', function() {
+        let sortType = this.value;
+        let table = document.getElementById("fishTable").getElementsByTagName('tbody')[0];
+        // Make visible
+        table.style.display = "table-row-group";
+        let rows = Array.from(table.getElementsByTagName("tr"));
+
+        rows.sort((a, b) => {
+            if (sortType === 'name') {
+                let nameA = a.cells[0].textContent.toLowerCase();
+                let nameB = b.cells[0].textContent.toLowerCase();
+                return nameA.localeCompare(nameB);
+            } else if (sortType === 'difficulty')
+            {
+                let diffA = a.cells[4].textContent.toLowerCase();
+                let diffB = b.cells[4].textContent.toLowerCase();
+                return diffA.localeCompare(diffB);
+            } else if (sortType === 'sellPrice') {
+                let sellA = parseFloat(a.cells[11].textContent) || 0;
+                let sellB = parseFloat(b.cells[11].textContent) || 0;
+                return sellB - sellA; // Sort in descending order
+            }
+        });
+        table.innerHTML = "";
+        rows.forEach(row => table.appendChild(row));
+    });
     // Sort table depending on selected sort type
     document.getElementById('sortType').addEventListener('change', function() {
         let sortType = this.value;

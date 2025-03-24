@@ -2,9 +2,20 @@
 function displayFishingTab($csvFile) {
 echo '<div id="fishing" class="tabcontent" style="display: none">
     <div class="controls">
-        <h4>Fishing</h4>
-        Fish data is from <a href="https://www.reddit.com/r/StardewValley/comments/4ayu8b/ultimate_fish_guide_spreadsheet_edition_which/">this spreadsheet</a>.
-    </div>
+            <h4>Controls</h4>
+            Fish data is from <a href="https://www.reddit.com/r/StardewValley/comments/4ayu8b/ultimate_fish_guide_spreadsheet_edition_which/">this spreadsheet</a>.
+            <br/>
+            <label for="sortTypeFishing">Sort table by:</label>
+            <select id="sortTypeFishing">
+                <option value="name">fish name (default)</option>
+                <option value="difficulty">difficulty</option>
+                <option value="sellPrice">sell price</option>
+            </select>
+            <br/>
+        <!--    <label for="showAllPrices">Show all sale prices:</label>-->
+        <!--    <input type="checkbox" id="showAllPrices" checked="checked">-->
+    
+        </div>
         <table id="fishTable">
             <thead>
             <tr>

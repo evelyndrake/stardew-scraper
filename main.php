@@ -2,6 +2,7 @@
 include 'data_functions.php';
 include 'farming_tab.php';
 include 'fishing_tab.php';
+include 'about_tab.php';
 $csvFile = fopen('data/crops_raw_data.csv', 'r');
 $fishFile = fopen('data/fish_raw_data.csv', 'r');
 
@@ -33,17 +34,18 @@ $fishFile = fopen('data/fish_raw_data.csv', 'r');
 <body>
 <h1>Stardew Calculator</h1>
 <div>
-<p><i>A profit calculator for the farming game <a href='https://www.stardewvalley.net/'>Stardew Valley</a> written by <a href="https://www.github.com/evelyndrake">Evelyn Drake</a>
-        for CSDS285 (Linux Tools and Scripting). View the source code <a href="https://github.com/evelyndrake/stardew-scraper">here.</a></i></i></p>
+<p><i>A profit calculator for the farming game <a href='https://www.stardewvalley.net/'>Stardew Valley</a>.</i></i></p>
 </div>
 <hr/>
 <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'farming')"><img src='icons/tabs/Watering_Can.png' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;'>Farming</button>
     <button class="tablinks" onclick="openTab(event, 'fishing')"><img src='icons/tabs/Fiberglass_Rod.png' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;'>Fishing</button>
+    <button class="tablinks" onclick="openTab(event, 'about')"><img src='icons/fish/Energy.png' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;'>About</button>
 </div>
 <?php
 displayFarmingTab($csvFile);
 displayFishingTab($fishFile);
+displayAboutTab();
 ?>
 
 

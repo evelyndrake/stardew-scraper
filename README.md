@@ -1,4 +1,5 @@
 # Stardew Calculator
+[Demo on CWRU server](http://eecslab-23.case.edu/~jcd171/cgi-bin/main.php)
 
 ### Overview
 My CSDS285 final project is a simple web application to help [Stardew Valley](https://www.stardewvalley.net/) players optimize their farming profits 

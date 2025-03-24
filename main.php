@@ -3,7 +3,7 @@ include 'data_functions.php';
 include 'farming_tab.php';
 include 'fishing_tab.php';
 include 'about_tab.php';
-$csvFile = fopen('data/crops_raw_data.csv', 'r');
+$cropFile = fopen('data/crops_raw_data.csv', 'r');
 $fishFile = fopen('data/fish_raw_data.csv', 'r');
 
 ?>
@@ -43,7 +43,7 @@ $fishFile = fopen('data/fish_raw_data.csv', 'r');
     <button class="tablinks" onclick="openTab(event, 'about')"><img src='icons/fish/Energy.png' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;'>About</button>
 </div>
 <?php
-displayFarmingTab($csvFile);
+displayFarmingTab($cropFile);
 displayFishingTab($fishFile);
 displayAboutTab();
 ?>
@@ -51,7 +51,7 @@ displayAboutTab();
 
 <script>
     // Tab functionality
-    function openTab(evt, cityName) {
+    function openTab(evt, tabName) {
         // Declare all variables
         var i, tabcontent, tablinks;
 
@@ -68,7 +68,7 @@ displayAboutTab();
         }
 
         // Show the current tab, and add an "active" class to the button that opened the tab
-        document.getElementById(cityName).style.display = "block";
+        document.getElementById(tabName).style.display = "block";
         evt.currentTarget.className += " active";
     }
     // Initally, sort alphabetically by seed name
@@ -176,7 +176,7 @@ displayAboutTab();
 <?php
 
 
-fclose($csvFile);
+fclose($cropFile);
 ?>
 
 </body>

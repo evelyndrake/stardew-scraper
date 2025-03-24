@@ -3,7 +3,7 @@ function displayFarmingTab($csvFile) {
     echo '<div id="farming" class="tabcontent">
     <div class="controls">
         <h4>Controls</h4>
-        <label for="sortType">Sort table by:</label>
+        <label for="sortType">Sort crops by</label>
         <select id="sortType">
             <option value="name">seed name (default)</option>
             <option value="goldPerDay">gold per day</option>
@@ -12,7 +12,7 @@ function displayFarmingTab($csvFile) {
             <option value="sellPrice">sell price</option>
         </select>
         <br/>
-        <label for="sellPriceType">Calculate Gold per Day based on:</label>
+        <label for="sellPriceType">Calculate Gold per Day based on</label>
         <select id="sellPriceType">
             <option value="regular">regular quality crops</option>
             <option value="silver">silver quality crops</option>

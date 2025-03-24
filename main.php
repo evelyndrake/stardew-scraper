@@ -123,6 +123,19 @@ displayFishingTab($fishFile);
         table.innerHTML = "";
         rows.forEach(row => table.appendChild(row));
     });
+    // Filter fishing table depending on location
+    document.getElementById('locationFilter').addEventListener('change', function() {
+        let selectedLocation = this.value.toLowerCase().replaceAll(" ","");
+        let rows = document.querySelectorAll("#fishTable tbody tr");
+        rows.forEach(row => {
+            let location = row.cells[1].textContent.toLowerCase().replaceAll(" ","");
+            if (selectedLocation === "all" || location.includes(selectedLocation)) {
+                row.style.display = ""; // Show row
+            } else {
+                row.style.display = "none"; // Hide row
+            }
+        });
+    });
     // Sort table depending on selected sort type
     document.getElementById('sortType').addEventListener('change', function() {
         let sortType = this.value;

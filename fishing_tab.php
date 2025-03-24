@@ -5,15 +5,31 @@ echo '<div id="fishing" class="tabcontent" style="display: none">
             <h4>Controls</h4>
             Fish data is from <a href="https://www.reddit.com/r/StardewValley/comments/4ayu8b/ultimate_fish_guide_spreadsheet_edition_which/">this spreadsheet</a>.
             <br/>
-            <label for="sortTypeFishing">Sort table by:</label>
+            <label for="sortTypeFishing">Sort fish by</label>
             <select id="sortTypeFishing">
                 <option value="name">fish name (default)</option>
                 <option value="difficulty">difficulty</option>
                 <option value="sellPrice">sell price</option>
             </select>
             <br/>
-        <!--    <label for="showAllPrices">Show all sale prices:</label>-->
-        <!--    <input type="checkbox" id="showAllPrices" checked="checked">-->
+            <label for="locationFilter">Only show fish from</label>
+            <select id="locationFilter">
+                <option value="all">All locations (default)</option>
+                <option value="river">River</option>
+                <option value="ocean">Ocean</option>
+                <option value="nightMarket">Night Market</option>
+                <option value="gingerIsland">Ginger Island</option>
+                <option value="mountainLake">Mountain Lake</option>
+                <option value="secretWoods">Secret Woods</option>
+                <option value="witch\'sSwamp">Witch\'s Swamp</option>
+                <option value="waterfalls">Waterfalls</option>
+                <option value="mines">Mines</option>
+                <option value="forestPond">Forest Pond</option>
+                <option value="sewers">Sewers</option>
+                <option value="desert">Desert</option>
+                <option value="mutantBugLair">Mutant Bug Lair</option>
+            </select>
+            <br/>
     
         </div>
         <table id="fishTable">

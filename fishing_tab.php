@@ -51,7 +51,6 @@ echo '<div id="fishing" class="tabcontent" style="display: none">
             </tr>
             </thead>
             <tbody>';
-
             while (($row = fgetcsv($csvFile, 0, ',', '"', '\\')) !== false) {
                 // Skip first row
                 if ($row[0] === "Fish") {
@@ -112,6 +111,47 @@ echo '<div id="fishing" class="tabcontent" style="display: none">
                 echo "<td class='iridium-price-column-row'>" . htmlspecialchars($sell_price_iridium) . "</td>";
                 echo "</tr>";
             }
-            echo '</tbody></table></div></div>';
+        echo '</tbody></table></div></div>';
+        echo "<script>
+        document.getElementById('sortTypeFishing').addEventListener('change', function() {
+            let sortType = this.value;
+            let table = document.getElementById('fishTable').getElementsByTagName('tbody')[0];
+            // Make visible
+            table.style.display = 'table-row-group';
+            let rows = Array.from(table.getElementsByTagName('tr'));
+    
+            rows.sort((a, b) => {
+                if (sortType === 'name') {
+                    let nameA = a.cells[0].textContent.toLowerCase();
+                    let nameB = b.cells[0].textContent.toLowerCase();
+                    return nameA.localeCompare(nameB);
+                } else if (sortType === 'difficulty')
+                {
+                    let diffA = a.cells[4].textContent.toLowerCase();
+                    let diffB = b.cells[4].textContent.toLowerCase();
+                    return diffA.localeCompare(diffB);
+                } else if (sortType === 'sellPrice') {
+                    let sellA = parseFloat(a.cells[11].textContent) || 0;
+                    let sellB = parseFloat(b.cells[11].textContent) || 0;
+                    return sellB - sellA; // Sort in descending order
+                }
+            });
+            table.innerHTML = '';
+            rows.forEach(row => table.appendChild(row));
+        });
+        // Filter fishing table depending on location
+        document.getElementById('locationFilter').addEventListener('change', function() {
+            let selectedLocation = this.value.toLowerCase().replaceAll(' ','');
+            let rows = document.querySelectorAll('#fishTable tbody tr');
+            rows.forEach(row => {
+                let location = row.cells[1].textContent.toLowerCase().replaceAll(' ','');
+                if (selectedLocation === 'all' || location.includes(selectedLocation)) {
+                    row.style.display = ''; // Show row
+                } else {
+                    row.style.display = 'none'; // Hide row
+                }
+            });
+        });</script>
+        ";
 }
 ?>

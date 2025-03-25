@@ -19,7 +19,10 @@ function displayFarmingTab($csvFile)
             <option value="gold">gold quality crops</option>
             <option value="iridium">iridium quality crops</option>
         </select>
+        
         <div class="small-text">(Production * Sell Price - Purchase Price) / 28</div>
+        <label for="numberOfSeeds">Number of seeds</label>
+        <input type="number" id="numberOfSeeds" value="1" min="1" max="9999"></input>
     <!--    <label for="showAllPrices">Show all sale prices:</label>-->
     <!--    <input type="checkbox" id="showAllPrices" checked="checked">-->
 
@@ -147,6 +150,24 @@ function displayFarmingTab($csvFile)
                 });
                 table.innerHTML = '';
                 rows.forEach(row => table.appendChild(row));
+            });
+            // Recalculate gold per day based on number of seeds
+            document.getElementById('numberOfSeeds').addEventListener('change', function() {
+                let numberOfSeeds = parseInt(this.value) || 1;
+                let rows = document.querySelectorAll('#cropTable tbody tr');
+                let selectedType = document.getElementById('sellPriceType').value;
+                console.log('test');
+                rows.forEach(row => {
+                    let production = parseFloat(row.cells[4].textContent) || 0;
+                    let purchasePrice = parseFloat(row.cells[5].textContent) || 0;
+                    let sellPrice = parseFloat(row.dataset[selectedType]) || 0;
+        
+                    let goldPerDay = (production > 0 && purchasePrice !== null) ?
+                        (((production * sellPrice) - purchasePrice) / 28).toFixed(2) :
+                        '0.00';
+        
+                    row.cells[1].textContent = (goldPerDay * numberOfSeeds).toFixed(2);
+                });
             });
         </script>";
 }

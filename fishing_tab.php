@@ -32,7 +32,7 @@ echo '<div id="fishing" class="tabcontent" style="display: none">
                 <option value="mutantBugLair">Mutant Bug Lair</option>
             </select>
             <br/>
-            <input id="searchFish" class="searchFish" type="text" placeholder="Search fish name...">
+            <input id="searchFish" class="search-box" type="text" placeholder="Search fish name...">
             
             
     

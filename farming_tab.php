@@ -23,9 +23,8 @@ function displayFarmingTab($csvFile)
         <div class="small-text">(Production * Sell Price - Purchase Price) / 28</div>
         <label for="numberOfSeeds">Number of seeds</label>
         <input type="number" id="numberOfSeeds" value="1" min="1" max="9999"></input>
-    <!--    <label for="showAllPrices">Show all sale prices:</label>-->
-    <!--    <input type="checkbox" id="showAllPrices" checked="checked">-->
-
+        <br/>
+         <input id="searchCrop" class="search-box" type="text" placeholder="Search crop name...">
     </div>
 
     <table id="cropTable">
@@ -169,6 +168,19 @@ function displayFarmingTab($csvFile)
                     row.cells[1].textContent = (goldPerDay * numberOfSeeds).toFixed(2);
                 });
             });
+            // Search crop table
+            document.getElementById('searchCrop').addEventListener('input', function() {
+            let searchTerm = this.value.toLowerCase();
+            let rows = document.querySelectorAll('#cropTable tbody tr');
+            rows.forEach(row => {
+                let cropName = row.cells[0].textContent.toLowerCase();
+                if (cropName.includes(searchTerm)) {
+                    row.style.display = ''; // Show row
+                } else {
+                    row.style.display = 'none'; // Hide row
+                }
+            });
+        })
         </script>";
 }
 ?>

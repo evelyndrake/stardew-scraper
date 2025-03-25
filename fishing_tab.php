@@ -5,12 +5,14 @@ echo '<div id="fishing" class="tabcontent" style="display: none">
             <h4>Controls</h4>
             Fish data is from <a href="https://www.reddit.com/r/StardewValley/comments/4ayu8b/ultimate_fish_guide_spreadsheet_edition_which/">this spreadsheet</a>.
             <br/>
+            
             <label for="sortTypeFishing">Sort fish by</label>
             <select id="sortTypeFishing">
                 <option value="name">fish name (default)</option>
                 <option value="difficulty">difficulty</option>
                 <option value="sellPrice">sell price</option>
             </select>
+            
             <br/>
             <label for="locationFilter">Only show fish from</label>
             <select id="locationFilter">
@@ -30,6 +32,9 @@ echo '<div id="fishing" class="tabcontent" style="display: none">
                 <option value="mutantBugLair">Mutant Bug Lair</option>
             </select>
             <br/>
+            <input id="searchFish" class="searchFish" type="text" placeholder="Search fish name...">
+            
+            
     
         </div>
         <table id="fishTable">
@@ -160,7 +165,21 @@ echo '<div id="fishing" class="tabcontent" style="display: none">
                     row.style.display = 'none'; // Hide row
                 }
             });
-        });</script>
+        });
+        // Search fish table
+        document.getElementById('searchFish').addEventListener('input', function() {
+            let searchTerm = this.value.toLowerCase();
+            let rows = document.querySelectorAll('#fishTable tbody tr');
+            rows.forEach(row => {
+                let fishName = row.cells[0].textContent.toLowerCase();
+                if (fishName.includes(searchTerm)) {
+                    row.style.display = ''; // Show row
+                } else {
+                    row.style.display = 'none'; // Hide row
+                }
+            });
+        })
+        </script>
         ";
 }
 ?>

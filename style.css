@@ -65,11 +65,10 @@ body {
 }
 
 @font-face {
-    font-family: Quicksand SemiBold;
-    src: url('Quicksand-SemiBold.ttf') format('truetype');
+    font-family: Noto Sans;
 }
 * {
-    font-family: Quicksand SemiBold, sans-serif;
+    font-family: Noto Sans, sans-serif;
 }
 
 h1 {

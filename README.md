@@ -27,3 +27,14 @@ Chart.js to graph the data in addition to the table would be cool too.
 ![sc1.png](screenshots/sc1.png)
 ![sc2.png](screenshots/sc2.png)
 ![sc3.png](screenshots/sc3.png)
+
+### Installation
+Initially, you will need to clone this repository into your `public_html` folder:
+
+`git clone https://github.com/evelyndrake/stardew-scraper.git`
+
+Then, you will need to run `./install.sh`, which will install the PHP files in the `cgi-bin` folder and fix the image paths.
+
+You can edit the install script to change the target directory (defaults to `../cgi-bin`) and adjust the image directory (by default it adds my Case ID, but you will need to change this).
+
+The installation script will pull down the latest changes from Github every time you run it, ensuring that your copy is always up to date.

@@ -1,4 +1,6 @@
 #!/bin/bash
+#Pull from git
+git pull
 destination="../cgi-bin"
 cp -r * "$destination/"
 #Add /~jcd171/ to all img tags (src='icons/')

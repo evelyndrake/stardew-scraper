@@ -127,13 +127,22 @@ echo '<div id="fishing" class="tabcontent" style="display: none">
                     return nameA.localeCompare(nameB);
                 } else if (sortType === 'difficulty')
                 {
-                    let diffA = a.cells[4].textContent.toLowerCase();
-                    let diffB = b.cells[4].textContent.toLowerCase();
-                    return diffA.localeCompare(diffB);
+                    // Order (easy, medium, hard, very hard, extreme)
+                    let difficultyOrder = {
+                        'Very Easy': 0,
+                        'Easy': 1,
+                        'Medium': 2,
+                        'Hard': 3,
+                        'Very Hard': 4,
+                        'Extreme': 5
+                    }
+                    let difficultyA = difficultyOrder[a.cells[4].textContent] || 0;
+                    let difficultyB = difficultyOrder[b.cells[4].textContent] || 0;
+                    return difficultyA - difficultyB; // Sort in ascending order
                 } else if (sortType === 'sellPrice') {
                     let sellA = parseFloat(a.cells[11].textContent) || 0;
                     let sellB = parseFloat(b.cells[11].textContent) || 0;
-                    return sellB - sellA; // Sort in descending order
+                    return sellA - sellB; // Sort in descending order
                 }
             });
             table.innerHTML = '';

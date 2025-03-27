@@ -80,7 +80,7 @@ echo '<div id="fishing" class="tabcontent" style="display: none">
                 $sell_price_iridium = (int)htmlspecialchars($row[5]);
 
                 echo "<tr>";
-                echo "<td><img src='{$image_path}' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;'> {$fish_name}</td>";
+                echo "<td><img src='{$image_path}' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;'> <a target='_blank' href='https://stardewvalleywiki.com/$fish_name'>{$fish_name}</a></td>";
                 echo "<td class='gold-price-column-row'>{$location}</td>";
                 echo "<td>{$time}</td>";
                 echo "<td>{$weather}</td>";

@@ -77,7 +77,7 @@ function displayFarmingTab($csvFile)
                         $regrowth_time_string = "instant";
                 }
                 echo "<tr title='{$description}' data-regular='{$sell_price_regular}' data-silver='{$sell_price_silver}' data-gold='{$sell_price_gold}' data-iridium='{$sell_price_iridium}'>";
-                echo "<td><img src='{$image_path}' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;' title='{$description}'> <a target='_blank' href='https://stardewvalleywiki.com/$seed_name'>{$seed_name}</a></td>";
+                echo "<td><img src='{$image_path}' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;' title='{$description}'> <a class='listName' target='_blank' href='https://stardewvalleywiki.com/$seed_name'>{$seed_name}</a></td>";
                 echo "<td class='gold-price-column-row' data-goldperday='" . number_format($gold_per_day, 2) . "'>" . number_format($gold_per_day, 2) . "</td>";
                 echo "<td>{$growth_time_string}</td>";
                 echo "<td>{$regrowth_time_string}</td>";

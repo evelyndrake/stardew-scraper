@@ -4,6 +4,8 @@ echo '<div id="gifts" class="tabcontent" style="display: none">
     <div class="controls">
         <h4>Controls</h4>
         <input id="searchGifts" class="search-box" type="text" placeholder="Search gift name...">
+        </br>
+        <input id="searchPeople" class="search-box" type="text" placeholder="Search characters...">
     </div>
     <table id="giftTable">
         <thead>
@@ -56,6 +58,18 @@ echo '<div id="gifts" class="tabcontent" style="display: none">
             rows.forEach(row => {
                 let giftName = row.cells[0].textContent.toLowerCase();
                 if (giftName.includes(searchTerm)) {
+                    row.style.display = ''; // Show row
+                } else {
+                    row.style.display = 'none'; // Hide row
+                }
+            });
+        });
+        document.getElementById('searchPeople').addEventListener('input', function() {
+            let searchTerm = this.value.toLowerCase();
+            let rows = document.querySelectorAll('#giftTable tbody tr');
+            rows.forEach(row => {
+                let personName = row.cells[1].textContent.toLowerCase();
+                if (personName.includes(searchTerm)) {
                     row.style.display = ''; // Show row
                 } else {
                     row.style.display = 'none'; // Hide row

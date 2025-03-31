@@ -11,6 +11,7 @@ echo '<div id="gifts" class="tabcontent" style="display: none">
             <th>Gift Name</th>
             <th class="gold-price-column">Characters Who Love</th>
             <th>Difficulty to Acquire</th>
+            <th>How to Acquire</th>
         </tr>
         </thead>
         <tbody>';
@@ -22,6 +23,7 @@ echo '<div id="gifts" class="tabcontent" style="display: none">
             // Remove ' in image name
             $image_name = str_replace("'", "", $image_name);
             $image_path = "icons/gifts/" . $image_name;
+            $how_to_acquire = $row[7] ?? ""; // How to acquire this gift
             // Skip first row
             if ($row[0]) {
                 continue;
@@ -36,6 +38,13 @@ echo '<div id="gifts" class="tabcontent" style="display: none">
                 echo "<td>(No characters love this gift)</td>";
             }
             echo "<td>{$difficulty_to_acquire}</td>";
+            if (!empty($how_to_acquire)) {
+                // Format the string to be more readable
+                $how_to_acquire = str_replace(", ", ", ", $how_to_acquire); // Format the string
+                echo "<td>{$how_to_acquire}</td>";
+            } else {
+                echo "<td>(No information on how to acquire this gift)</td>";
+            }
             echo "</tr>";
 
         }

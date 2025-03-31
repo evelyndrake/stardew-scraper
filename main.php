@@ -3,8 +3,10 @@ include 'data_functions.php';
 include 'farming_tab.php';
 include 'fishing_tab.php';
 include 'about_tab.php';
+include 'gift_tab.php';
 $cropFile = fopen('data/crops_raw_data.csv', 'r');
 $fishFile = fopen('data/fish_raw_data.csv', 'r');
+$giftFile = fopen('data/gifts_raw_data.csv', 'r');
 
 ?>
 <!DOCTYPE html>
@@ -40,11 +42,13 @@ $fishFile = fopen('data/fish_raw_data.csv', 'r');
 <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'farming')"><img src='icons/tabs/Watering_Can.png' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;'>Farming</button>
     <button class="tablinks" onclick="openTab(event, 'fishing')"><img src='icons/tabs/Fiberglass_Rod.png' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;'>Fishing</button>
+    <button class="tablinks" onclick="openTab(event, 'gifts')"><img src='icons/tabs/Heart.png' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;'>Gifts</button>
     <button class="tablinks" onclick="openTab(event, 'about')"><img src='icons/fish/Energy.png' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;'>About</button>
 </div>
 <?php
 displayFarmingTab($cropFile);
 displayFishingTab($fishFile);
+displayGiftTab($giftFile);
 displayAboutTab();
 ?>
 
@@ -77,6 +81,8 @@ displayAboutTab();
 
 
 fclose($cropFile);
+fclose($fishFile);
+fclose($giftFile);
 ?>
 
 </body>

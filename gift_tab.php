@@ -9,7 +9,7 @@ echo '<div id="gifts" class="tabcontent" style="display: none">
         <thead>
         <tr>
             <th>Gift Name</th>
-            <th>Characters Who Love</th>
+            <th class="gold-price-column">Characters Who Love</th>
             <th>Difficulty to Acquire</th>
         </tr>
         </thead>
@@ -18,16 +18,20 @@ echo '<div id="gifts" class="tabcontent" style="display: none">
             $gift_name = $row[1] ?? "";
             $characters_love = $row[2] ?? ""; // Characters who love this gift
             $difficulty_to_acquire = $row[6] ?? ""; // Difficulty to acquire this gift
+            $image_name = str_replace(" ", "_", $gift_name) . '.png';
+            // Remove ' in image name
+            $image_name = str_replace("'", "", $image_name);
+            $image_path = "icons/gifts/" . $image_name;
             // Skip first row
             if ($row[0]) {
                 continue;
             }
             echo "<tr>";
-            echo "<td>{$gift_name}</td>";
+            echo "<td><img src='{$image_path}' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;'><a class='listName' target='_blank' href='https://stardewvalleywiki.com/$gift_name'>{$gift_name}</a></td>";
             // Display characters who love this gift
             if (!empty($characters_love)) {
                 $characters_love = str_replace(", ", ", ", $characters_love); // Format the string
-                echo "<td>{$characters_love}</td>";
+                echo "<td class='gold-price-column-row'>{$characters_love}</td>";
             } else {
                 echo "<td>(No characters love this gift)</td>";
             }

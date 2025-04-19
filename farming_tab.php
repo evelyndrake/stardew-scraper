@@ -10,6 +10,10 @@ function displayFarmingTab($csvFile)
             <option value="purchasePrice">cheapest purchase price</option>
             <option value="farmingXP">farming XP gained</option>
             <option value="sellPrice">sell price</option>
+            <option value="effortPerGold">effort per gold</option>
+            <option value="XPperGold">XP per gold</option>
+            <option value="accessibilityScore">accessibility score</option>
+            <option value="profitPerSeed">profit per seed</option>
         </select>
         <br/>
         <label for="sellPriceType">Calculate Gold per Day based on</label>
@@ -19,12 +23,30 @@ function displayFarmingTab($csvFile)
             <option value="gold">gold quality crops</option>
             <option value="iridium">iridium quality crops</option>
         </select>
-        
-        <div class="small-text">(Production * Sell Price - Purchase Price) / 28</div>
+        </br>
         <label for="numberOfSeeds">Number of seeds</label>
         <input type="number" id="numberOfSeeds" value="1" min="1" max="9999"></input>
         <br/>
          <input id="searchCrop" class="search-box" type="text" placeholder="Search crop name...">
+        <div class="notes-section">
+            <h4 class="notes-toggle" style="margin-top: 0.3em" onclick="toggleNotes()">▶ Notes (click to expand)</h4>
+            <div id="notesContent" style="display: none; margin-left: 3px;">
+                    <strong>Gold per day</strong>: (Production × Sell Price − Purchase Price) / 28
+                    </br>
+                    <strong>Effort per gold</strong>: (Total harvests × Time per harvest) / Total Gold
+                    </br>
+                    <strong>XP per gold</strong>: Total Farming XP / Total Gold Earned
+                    </br>
+                    <strong>Accessibility score</strong>: Based on how easily seeds can be obtained
+                    <ul style="margin-top=0em">
+                        <li>3 - Available at the general store</li>
+                        <li>2 - Available at a seasonal store</li>
+                        <li>1 - Only available at traveling cart</li>
+                        <li>0 - Available by special means only (see wiki page by clicking item name)</li>
+                    </ul>
+                    <strong>Profit per seed</strong>: (Production × Sell Price) − Purchase Price
+            </div>
+        </div>
     </div>
 
     <table id="cropTable">
@@ -32,21 +54,26 @@ function displayFarmingTab($csvFile)
         <tr>
             <th>Seed name</th>
             <th class="gold-price-column">Gold per day</th>
+            <th class="summer-column">Effort per gold</th>
+            <th class="fall-column">XP per gold</th>
+            <th class="winter-column">Accessibility score</th>
+            <th class="spring-column">Profit per seed</th>
             <th>Growth time</th>
             <th>Regrowth time</th>
             <th>Production per season</th>
             <th class="purchase-price-column">Cheapest purchase price</th>
-            <th class="regular-price-column">Sell price (regular quality)</th>
-            <th class="silver-price-column">Sell price (silver quality)</th>
-            <th class="gold-price-column">Sell price (gold quality)</th>
-            <th class="iridium-price-column">Sell price (iridium quality)</th>
+            <th class="regular-price-column">Sell price (regular)</th>
+            <th class="silver-price-column">Sell price (silver)</th>
+            <th class="gold-price-column">Sell price (gold)</th>
+            <th class="iridium-price-column">Sell price (iridium)</th>
             <th class="farming-xp-column">Farming XP</th>
         </tr>
         </thead>
     <tbody>';
         while (($row = fgetcsv($csvFile, 0, ',', '"', '\\')) !== false) {
                 $seed_name = htmlspecialchars($row[4]);
-                if ($seed_name === "seed") { // I was never able to figure this out, but there was an extra row that wasn't in the dataset
+                if ($seed_name === "seed" || $seed_name === "Ancient Seeds") { // Skip the header row
+                        // Also skip ancient seeds because they're missing data
                         continue;
                 }
                 $image_name = str_replace(" ", "_", $seed_name) . '.png';
@@ -76,9 +103,22 @@ function displayFarmingTab($csvFile)
                 if ($regrowth_time === 0) {
                         $regrowth_time_string = "instant";
                 }
+                $effort_per_gold = calculate_effort_per_gold($growth_time, $regrowth_time, $gold_per_day);
+                if ($effort_per_gold === INF) {
+                        $effort_per_gold = "No data";
+                } else {
+                        $effort_per_gold = number_format($effort_per_gold, 3);
+                }
+                $xp_per_gold = calculate_xp_per_gold($farming_xp, $growth_time, $regrowth_time, $gold_per_day);
+                $accessibility_score = calculate_accessibility_score($purchase_prices);
+                $profit_per_seed = calculate_profit_per_seed($production, $sell_price_regular, $purchase_price);
                 echo "<tr title='{$description}' data-regular='{$sell_price_regular}' data-silver='{$sell_price_silver}' data-gold='{$sell_price_gold}' data-iridium='{$sell_price_iridium}'>";
                 echo "<td><img src='{$image_path}' style='width: 32px; height: 32px; vertical-align: middle; margin-right: 5px;' title='{$description}'> <a class='listName' target='_blank' href='https://stardewvalleywiki.com/$seed_name'>{$seed_name}</a></td>";
                 echo "<td class='gold-price-column-row' data-goldperday='" . number_format($gold_per_day, 2) . "'>" . number_format($gold_per_day, 2) . "</td>";
+                echo "<td class='summer-column-row'>" . $effort_per_gold . "</td>";
+                echo "<td class='fall-column-row'>" . number_format($xp_per_gold, 3) . "</td>";
+                echo "<td class='winter-column-row'>" . $accessibility_score . "</td>";
+                echo "<td class='spring-column-row'>" . number_format($profit_per_seed, 0) . "</td>";
                 echo "<td>{$growth_time_string}</td>";
                 echo "<td>{$regrowth_time_string}</td>";
                 echo "<td>{$production}</td>";
@@ -134,17 +174,33 @@ function displayFarmingTab($csvFile)
                         let goldB = parseFloat(b.cells[1].dataset.goldperday) || 0;
                         return goldB - goldA; // Sort in descending order
                     } else if (sortType === 'purchasePrice') {
-                        let priceA = parseFloat(a.cells[5].textContent) || 0;
-                        let priceB = parseFloat(b.cells[5].textContent) || 0;
+                        let priceA = parseFloat(a.cells[9].textContent) || 0;
+                        let priceB = parseFloat(b.cells[9].textContent) || 0;
                         return priceA - priceB; // Sort in ascending order
                     } else if (sortType === 'farmingXP') {
-                        let xpA = parseFloat(a.cells[9].textContent) || 0;
-                        let xpB = parseFloat(b.cells[9].textContent) || 0;
+                        let xpA = parseFloat(a.cells[14].textContent) || 0;
+                        let xpB = parseFloat(b.cells[14].textContent) || 0;
                         return xpB - xpA; // Sort in descending order
                     } else if (sortType === 'sellPrice') {
-                        let sellA = parseFloat(a.cells[6].textContent) || 0;
-                        let sellB = parseFloat(b.cells[6].textContent) || 0;
+                        let sellA = parseFloat(a.cells[10].textContent) || 0;
+                        let sellB = parseFloat(b.cells[10].textContent) || 0;
                         return sellB - sellA; // Sort in descending order
+                    } else if (sortType === 'effortPerGold') {
+                        let effortA = parseFloat(a.cells[2].textContent) || 0;
+                        let effortB = parseFloat(b.cells[2].textContent) || 0;
+                        return effortA - effortB; // Sort in ascending order
+                    } else if (sortType === 'XPperGold') {
+                        let scoreA = parseFloat(a.cells[3].textContent) || 0;
+                        let scoreB = parseFloat(b.cells[3].textContent) || 0;
+                        return scoreB - scoreA; // Sort in descending order
+                    } else if (sortType === 'accessibilityScore') {
+                        let scoreA = parseFloat(a.cells[4].textContent) || 0;
+                        let scoreB = parseFloat(b.cells[4].textContent) || 0;
+                        return scoreB - scoreA; // Sort in descending order
+                    }  else if (sortType === 'profitPerSeed') {
+                        let profitA = parseFloat(a.cells[5].textContent) || 0;
+                        let profitB = parseFloat(b.cells[5].textContent) || 0;
+                        return profitB - profitA; // Sort in descending order
                     }
                 });
                 table.innerHTML = '';
@@ -181,6 +237,17 @@ function displayFarmingTab($csvFile)
                 }
             });
         })
+        function toggleNotes() {
+            const notes = document.getElementById('notesContent');
+            const header = document.querySelector('.notes-toggle');
+        if (notes.style.display === 'none') {
+            notes.style.display = 'block';
+            header.innerHTML = '▼ Notes (click to collapse)';
+        } else {
+            notes.style.display = 'none';
+            header.innerHTML = '▶ Notes (click to expand)';
+        }
+        }
         </script>";
 }
 ?>

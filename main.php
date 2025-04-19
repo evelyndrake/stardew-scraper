@@ -36,7 +36,7 @@ $giftFile = fopen('data/gifts_raw_data.csv', 'r');
 <body>
 <h1>Stardew Calculator</h1>
 <div>
-<p><i>A profit calculator for the farming game <a href='https://www.stardewvalley.net/'>Stardew Valley</a>.</i></i></p>
+<p><i>A multipurpose calculator for the farming game <a href='https://www.stardewvalley.net/'>Stardew Valley</a>.</i></i></p>
 </div>
 <hr/>
 <div class="tab">

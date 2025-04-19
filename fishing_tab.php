@@ -49,10 +49,10 @@ echo '<div id="fishing" class="tabcontent" style="display: none">
                 <th class="summer-column">Summer</th>
                 <th class="fall-column">Fall</th>
                 <th class="winter-column">Winter</th>
-                <th class="regular-price-column">Sell price (regular quality)</th>
-                <th class="silver-price-column">Sell price (silver quality)</th>
-                <th class="gold-price-column">Sell price (gold quality)</th>
-                <th class="iridium-price-column">Sell price (iridium quality)</th>
+                <th class="regular-price-column">Sell price (regular)</th>
+                <th class="silver-price-column">Sell price (silver)</th>
+                <th class="gold-price-column">Sell price (gold)</th>
+                <th class="iridium-price-column">Sell price (iridium)</th>
             </tr>
             </thead>
             <tbody>';

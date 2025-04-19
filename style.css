@@ -78,6 +78,10 @@ h4 {
     margin-bottom: 0;
 }
 
+.notes {
+    margin-top: 0.5em;
+}
+
 .controls {
     horiz-align: left;
     margin-bottom: 0.5em;

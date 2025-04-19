@@ -12,7 +12,7 @@ $giftFile = fopen('data/gifts_raw_data.csv', 'r');
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Stardew Scraper</title>
+    <title>Stardew Calculator</title>
     <style>
         table {
             border-collapse: collapse;

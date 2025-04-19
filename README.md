@@ -17,7 +17,7 @@ my changes down to the EECSlab servers without having to edit it through SSH. I 
 ### Usage
 There are four tabs, and the user can navigate between them by clicking on them. Note that the user can view the Stardew Valley wiki page for any item by clicking on its name!
 
-##### Farming
+#### Farming
 Growing, harvesting, and selling crops makes up Stardew Valley's core gameplay, so I've made this functionality the most complex.
 
 The user can sort the table based on their desired metric using the dropdown, sorting by:
@@ -34,7 +34,7 @@ The user can sort the table based on their desired metric using the dropdown, so
 The user can determine if they want to calculate the gold per day based on regular, silver, gold, or iridium quality crops.
 They can also scale some of the values by an arbitrary number of seeds, as well as searching for a specific crop's values by name. There is a notes section that can be expanded to reveal the specific calculations used for each metric.
 
-##### Fishing
+#### Fishing
 Players can catch and sell fish in a variety of locations.
 
 The user can sort the table based on their desired metric using the dropdown, sorting by:
@@ -44,12 +44,12 @@ The user can sort the table based on their desired metric using the dropdown, so
 
 The user can filter fish by their specific locations as well as search for specific fish by name.
 
-##### Gifts
+#### Gifts
 Players can establish relationships with other members of the town by giving them specific gifts.
 
 The user can view a list of available gifts, the characters that appreciate them, their difficulty to acquire, and the means by which they are acquired. The user can search this table by gift name or by character.
 
-##### About
+#### About
 Displays this project's source code as well as my Github and personal website.
 
 ### Screenshots (as of 4/19)

@@ -3,8 +3,8 @@
 git pull
 destination="../cgi-bin"
 cp -r * "$destination/"
-#Move icons to ..
-mv "$destination"/icons/* "$destination"/..
+#Move public_html/cgi-bin/icons to public_html/icons
+mv "$destination/icons" ../icons
 #Add /~jcd171/ to all img tags (src='icons/')
 find "$destination" -type f -name "*.php" -exec sed -i "s/src='icons\//src='\/~jcd171\/icons\//g" {} +
 #Add /~jcd171/ to all img tags (src="icons/"), double quotes

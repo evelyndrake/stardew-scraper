@@ -68,4 +68,4 @@ Then, you will need to run `./install.sh`, which will install the PHP files in t
 
 You can edit the install script to change the target directory (defaults to `../cgi-bin`) and adjust the image directory (by default it adds my Case ID, but you will need to change this).
 
-The installation script will pull down the latest changes from Github every time you run it, ensuring that your copy is always up to date.
+The installation script will pull down the latest changes from Github every time you run it, ensuring that your copy is always up to date. This still might not be perfect though, especiall with the image paths.
